@@ -2,128 +2,168 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1"> <!-- ESSENCIAL para mobile -->
   <title>Guia Completo de Exercícios de Musculação</title>
+
   <style>
-:root {
-  /* ajuste esse valor para a altura do seu header (em px) */
-  --header-height: 130px;
-}
+  :root{
+    --bg: #0b0d0f;
+    --accent: #f59e0b;
+    --card-bg: #ffffff;
+    --header-height: 56px; /* altura do header fixo */
+    --nav-height: 64px;    /* altura do nav fixo (padrão) */
+  }
 
-/* faz com que a seção alvo fique abaixo do header sticky */
+  /* evita scroll horizontal */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100vw;
+  }
+
+  /* HEADER fixo (título) */
+  .site-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    display:flex;
+    align-items:center;
+    padding: 0 16px;
+    z-index: 1100;
+    background: var(--bg);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02);
+  }
+  .site-header .guide-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  /* NAV fixo logo abaixo do header */
+  .topnav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    z-index: 1090;
+    background: var(--bg);
+    padding: 6px 8px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02);
+  }
+
+  /* comportamento dos botões (desktop: wrap; mobile: scroll horizontal) */
+  .topnav ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap; /* no desktop quebra em linhas */
+  }
+  .topnav ul li { flex: 0 0 auto; }
+  .topnav ul li a {
+    text-decoration:none;
+    color:#0b0d0f;
+    background:var(--accent);
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:800;
+    display:inline-block;
+  }
+
+  /* MOBILE: faz virar faixa rolável horizontal */
+  @media (max-width: 768px) {
+    :root { --nav-height: 56px; } /* reduz um pouco a altura no mobile */
+    .topnav ul {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 12px;
+    }
+    .topnav ul::-webkit-scrollbar { display:none; }
+  }
+
+  /* empurra o conteúdo principal para baixo para não ficar por trás do header + nav */
+  main {
+    padding: calc(var(--header-height) + var(--nav-height) + 20px) 18px 40px 18px;
+  }
+
+  /* ----- cards de exercício (mantive suas regras, ajustei overflow) ----- */
+  .exercise {
+    background-color: var(--card-bg);
+    border-radius: 18px;
+    padding: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    color: #0b0d0f;
+    overflow: hidden; /* garante que imagens não 'vazem' fora do border-radius */
+  }
+  .exercise-content { display:flex; gap:14px; align-items:center; justify-content:space-between; }
+  .exercise-text { flex:1 1 auto; padding-right:8px; }
+  .exercise h3 { margin:0 0 8px 0; font-size:20px; }
+  .exercise p { margin:0; line-height:1.4; }
+  .exercise img { width:150px; height:auto; border-radius:12px; object-fit:cover; flex:0 0 auto; }
+
+  /* Modal (popup) */
+  .modal { display:none; position:fixed; inset:0; background: rgba(0,0,0,0.75); align-items:center; justify-content:center; z-index:2000;}
+  .modal.open { display:flex; }
+  .modal-content {
+    background:#fff; color:#0b0d0f; border-radius:16px; padding:18px;
+    max-width:720px; width:94%; max-height:calc(100vh - 80px); overflow-y:auto; box-shadow:0 8px 24px rgba(0,0,0,0.45);
+  }
+  .modal-content img { width:100%; border-radius:12px; display:block; }
+
+  /* Ajustes mobile específicos */
+  @media (max-width:480px) {
+    .exercise-content { flex-direction:column; align-items:flex-start; }
+    .exercise img { width:100%; max-width:100%; margin-top:10px; border-radius:12px; }
+    .modal-content { width:96%; padding:14px; border-radius:12px; }
+  }
+
+/* garante que ao clicar no menu, o título da seção apareça logo abaixo do header/nav fixos */
 section {
-  scroll-margin-top: var(--header-height);
+  scroll-margin-top: calc(var(--header-height) + var(--nav-height) + 10px);
 }
 
-/* opcional: se preferir que os títulos h2 sejam o alvo do scroll */
-section h2 {
-  scroll-margin-top: calc(var(--header-height) + 8px);
-}
 
-/* rolagem suave (opcional) */
-html {
-  scroll-behavior: smooth;
-}
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #0b0d0f; }
-    header {
-  background-color: #0b0d0f;
-  color: white;
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-header img {
-  height: 50px; /* ajuste o tamanho conforme necessário */
-}
-    nav ul { list-style: none; margin: 10px 0 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
-    nav ul li { margin: 5px;}
-    nav ul li a { color: #0b0d0f; text-decoration: none; font-weight: bold; padding: 10px 15px; background-color: #f59e0b; border-radius: 5px; display: inline-block; }
-    nav ul li a:hover { background-color: #a52a2a; }
-    main { padding: 20px; }
-    section { margin-bottom: 70px; justify-content: center;}
-    .exercise { background-color: white; border-radius: 40px; padding:0px; margin-bottom: 20px; box-shadow: 0px 2px 5px rgba(0,0,0,0.2); }
-    .exercise img {max-width: 150px; display: block; margin: 10px 0; margin-left: auto; margin-right: 20px;border-radius: 20px}
-
-.exercise {
-  text-align: left ;
-}
-
-.exercise-content {
-  display: flex;
-  align-items: center;           /* Alinha texto verticalmente com a imagem */
-  justify-content: space-between;
-}
-    
-h1 { color: white; }
-h2 { color: white; }
-h3 { color: #0b0d0f; }
-h4 { color: white; }
-
-    a.top { display: block; margin-top: 10px; font-size: 14px; }
-
-
-/* fundo escuro do popup */
-.modal {
-  display: none; /* escondido por padrão */
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-}
-
-/* conteúdo do popup */
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  width: 90%;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-/* botão de fechar */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-}
-
-  </style>
+</style>
 </head>
+
 <body>
-<header>
-  <nav>
-    <ul>  
-      <li><a href="#peito">Peito</a></li>
-      <li><a href="#abdomen">Abdômen</a></li>
-      <li><a href="#costas">Costas</a></li>
-      <li><a href="#ombros">Ombros</a></li>
-      <li><a href="#biceps">Bíceps</a></li>
-      <li><a href="#triceps">Tríceps</a></li>
-      <li><a href="#trapezio">Trapézio</a></li>
-      <li><a href="#pernas">Quadríceps / Posterior</a></li>
-      <li><a href="#gluteo">Glúteo</a></li>
-      <li><a href="#panturrilha">Panturrilha</a></li>
-      <li><a href="#antebraco">Antebraço</a></li>
-    </ul>
-  </nav>
+<!-- HEADER fixo com título -->
+<header class="site-header">
+  <div class="header-inner">
+    <h1 class="guide-title">Guia de Exercícios de Musculação</h1>
+  </div>
+</header>
+
+<!-- NAV fixo logo abaixo do header (topnav) -->
+<nav class="topnav">
+  <ul>
+    <li><a href="#peito">Peito</a></li>
+    <li><a href="#abdomen">Abdômen</a></li>
+    <li><a href="#costas">Costas</a></li>
+    <li><a href="#ombros">Ombros</a></li>
+    <li><a href="#biceps">Bíceps</a></li>
+    <li><a href="#triceps">Tríceps</a></li>
+    <li><a href="#trapezio">Trapézio</a></li>
+    <li><a href="#pernas">Quadríceps / Posterior</a></li>
+    <li><a href="#gluteo">Glúteo</a></li>
+    <li><a href="#panturrilha">Panturrilha</a></li>
+    <li><a href="#antebraco">Antebraço</a></li>
+  </ul>
+</nav>
 </header>
 <main>
 
@@ -670,31 +710,47 @@ h4 { color: white; }
 </div>
 
 <script>
-  // Seleciona modal e elementos
   const modal = document.getElementById("exerciseModal");
   const modalBody = document.getElementById("modalBody");
   const closeBtn = document.querySelector(".close-btn");
 
-  // Adiciona evento a cada exercício
   document.querySelectorAll(".exercise").forEach(exercise => {
-    exercise.addEventListener("click", () => {
-      // Clona o conteúdo do exercício clicado
+    exercise.addEventListener("click", (ev) => {
+      // evita cliques em links dentro do exercício navegarem
+      ev.preventDefault?.();
+
+      // clona o conteúdo e insere no modal
       modalBody.innerHTML = exercise.innerHTML;
-      modal.style.display = "flex";
+
+      // opcional: remove botões indesejados do clone (ex: anchors que navegam)
+      modalBody.querySelectorAll('a').forEach(a=>a.removeAttribute('href'));
+
+      modal.classList.add('open');
+      // garante que o modal fique scrollado ao topo do seu conteúdo
+      modalBody.scrollTop = 0;
     });
   });
 
-  // Botão X fecha modal
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-
-  // Clique fora do conteúdo também fecha
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  });
+  closeBtn.addEventListener("click", () => modal.classList.remove('open'));
+  window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove('open'); });
+  window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') modal.classList.remove('open'); });
 </script>
+
+<script>
+  function adjustMainPadding(){
+    const header = document.querySelector('.site-header');
+    const nav = document.querySelector('.topnav');
+    const main = document.querySelector('main');
+    if(!header || !nav || !main) return;
+    const total = header.offsetHeight + nav.offsetHeight + 16; // folga extra
+    main.style.paddingTop = total + 'px';
+  }
+  window.addEventListener('load', adjustMainPadding);
+  window.addEventListener('resize', adjustMainPadding);
+  // chama também depois de 200ms (caso fontes/carregamento mudem alturas)
+  setTimeout(adjustMainPadding, 200);
+</script>
+
+
 </body>
 </html>

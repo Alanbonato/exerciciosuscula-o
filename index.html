@@ -6,7 +6,7 @@
   <style>
 :root {
   /* ajuste esse valor para a altura do seu header (em px) */
-  --header-height: 200px;
+  --header-height: 100px;
 }
 
 /* faz com que a seção alvo fique abaixo do header sticky */
@@ -40,14 +40,14 @@ html {
 }
 
 header img {
-  height: 100px; /* ajuste o tamanho conforme necessário */
+  height: 50px; /* ajuste o tamanho conforme necessário */
 }
     nav ul { list-style: none; margin: 10px 0 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
-    nav ul li { margin: 5px; }
+    nav ul li { margin: 5px;}
     nav ul li a { color: #0b0d0f; text-decoration: none; font-weight: bold; padding: 10px 15px; background-color: #f59e0b; border-radius: 5px; display: inline-block; }
     nav ul li a:hover { background-color: #a52a2a; }
     main { padding: 20px; }
-    section { margin-bottom: 70px; }
+    section { margin-bottom: 70px; justify-content: center;}
     .exercise { background-color: white; border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
     .exercise img {max-width: 300px; display: block; margin: 10px 0; margin-left: auto; margin-right: 0;}
 
@@ -86,7 +86,7 @@ h4 { color: white; }
 /* conteúdo do popup */
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 100px;
   border-radius: 10px;
   max-width: 600px;
   width: 90%;
@@ -109,15 +109,8 @@ h4 { color: white; }
 </head>
 <body>
 <header>
-
-  <div class="header-top">
-    <img src="logo.png" alt="Logo">
-    <h1>Guia Completo de Exercícios de Musculação</h1>
-  </div>
   <nav>
-
-    <ul>
-        
+    <ul>  
       <li><a href="#peito">Peito</a></li>
       <li><a href="#abdomen">Abdômen</a></li>
       <li><a href="#costas">Costas</a></li>
@@ -134,7 +127,6 @@ h4 { color: white; }
 </header>
 <main>
 
-<h2>Escolha um grupo muscular para visualizar os exercícios.</h2>  
 <h4><p>Clique no menu acima para acessar os exercícios detalhados.</p></h4>
 </main>
 <!------------------------------------------------------------------------------ Seção Peito --------------------------------------------------------------->
@@ -704,8 +696,5 @@ h4 { color: white; }
     }
   });
 </script>
-
-
-
 </body>
 </html>

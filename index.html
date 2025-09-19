@@ -24,8 +24,25 @@ html {
   scroll-behavior: smooth;
 }
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #0b0d0f; }
-    header { background-color: #0b0d0f; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
-    nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
+    header {
+  background-color: #0b0d0f;
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header img {
+  height: 100px; /* ajuste o tamanho conforme necessário */
+}
+    nav ul { list-style: none; margin: 10px 0 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
     nav ul li { margin: 5px; }
     nav ul li a { color: #0b0d0f; text-decoration: none; font-weight: bold; padding: 10px 15px; background-color: #f59e0b; border-radius: 5px; display: inline-block; }
     nav ul li a:hover { background-color: #a52a2a; }
@@ -51,12 +68,54 @@ h4 { color: white; }
 
     a.top { display: block; margin-top: 10px; font-size: 14px; }
 
+
+/* fundo escuro do popup */
+.modal {
+  display: none; /* escondido por padrão */
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+/* conteúdo do popup */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* botão de fechar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
 <header>
-  <h1>Guia Completo de Exercícios de Musculação</h1>
+
+  <div class="header-top">
+    <img src="logo.png" alt="Logo">
+    <h1>Guia Completo de Exercícios de Musculação</h1>
+  </div>
   <nav>
+
     <ul>
         
       <li><a href="#peito">Peito</a></li>
@@ -609,6 +668,44 @@ h4 { color: white; }
 
 
 </main>
+
+<!-- Modal para exibir exercício -->
+<div id="exerciseModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // Seleciona modal e elementos
+  const modal = document.getElementById("exerciseModal");
+  const modalBody = document.getElementById("modalBody");
+  const closeBtn = document.querySelector(".close-btn");
+
+  // Adiciona evento a cada exercício
+  document.querySelectorAll(".exercise").forEach(exercise => {
+    exercise.addEventListener("click", () => {
+      // Clona o conteúdo do exercício clicado
+      modalBody.innerHTML = exercise.innerHTML;
+      modal.style.display = "flex";
+    });
+  });
+
+  // Botão X fecha modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Clique fora do conteúdo também fecha
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+
 
 </body>
 </html>
